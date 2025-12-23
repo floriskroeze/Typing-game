@@ -1,4 +1,4 @@
-import {Button} from "./button/Button.ts";
+import {Button} from "./Button.ts";
 
 export class StartButton {
     public startButtonElement?: HTMLButtonElement;
@@ -16,7 +16,8 @@ export class StartButton {
         return startButton;
     }
 
-    private destroyStartButton(): void {
-        this.startButtonElement?.remove();
+    public static destroyStartButton(): void {
+        const startButton = document.getElementById('start-button');
+        startButton?.remove();
     }
 }

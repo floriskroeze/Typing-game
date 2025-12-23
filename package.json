@@ -1,14 +1,20 @@
 {
-  "name": "${PROJECT_NAME}",
+  "name": "typing-game",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "vite build",
+    "dev": "vite"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.18",
+    "@tailwindcss/vite": "^4.1.18",
+    "tailwind": "^4.0.0"
+  },
   "devDependencies": {
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.3",
+    "vite": "^6.4.1"
   },
   "private": true
 }

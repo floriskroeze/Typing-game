@@ -7,7 +7,7 @@ export default defineConfig({
     outDir: '../dist',
     rollupOptions: {
       input: {
-        main: 'src/main.ts'
+        main: 'src/index.ts'
       },
       output: {
         entryFileNames: 'main.js',

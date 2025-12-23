@@ -1,1 +1,3 @@
-console.log('Happy developing ✨')
+import {Game} from './Game.ts';
+
+new Game();

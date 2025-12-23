@@ -13,9 +13,9 @@ export class GameText {
 
     public setWords(text: string) {
         const arrayOfWords = text.split(' ');
-        console.log(arrayOfWords);
+
         arrayOfWords.forEach((word, index) => {
-            const newWord = Word.create(word);
+            const newWord = Word.create(word, index);
             const space = Word.create(" ");
 
             this.words.push(newWord);
