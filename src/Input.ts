@@ -1,4 +1,4 @@
-import {GameInstance} from "./gameinstance/GameInstance.ts";
+import {GameInstance} from "./game-instance/GameInstance.ts";
 
 export class Input {
     public static createInputField(): HTMLTextAreaElement {

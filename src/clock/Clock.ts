@@ -1,10 +1,11 @@
 export class Clock {
     private readonly clockElement: Element|null;
-    private timeLeft = 20;
+    private time = 20;
     private intervalID: number|undefined;
 
-    constructor() {
+    constructor(time: number) {
         this.clockElement = document.getElementById('clock');
+        this.time = time;
     }
 
     public start(): void {
@@ -12,12 +13,12 @@ export class Clock {
         this.intervalID = setInterval(() => {
             if(!this.clockElement) return;
 
-            if (this.timeLeft === 0) {
+            if (this.time === 0) {
                 return this.stop();
             }
 
             this.decrementTime();
-            return this.setClockElementTime(this.timeLeft);
+            return this.setClockElementTime(this.time);
         }, 1000);
     }
 
@@ -44,14 +45,14 @@ export class Clock {
     }
 
     public getTimeLeft(): number {
-        return this.timeLeft;
+        return this.time;
     }
 
     public setTimeLeft(time: number): void {
-        this.timeLeft = time;
+        this.time = time;
     }
 
     private decrementTime(): void {
-        this.timeLeft--;
+        this.time--;
     }
 }

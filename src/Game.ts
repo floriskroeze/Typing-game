@@ -1,4 +1,4 @@
-import {GameInstance} from "./gameinstance/GameInstance.ts";
+import {GameInstance} from "./game-instance/GameInstance.ts";
 import {ScoreBoard} from "./score/ScoreBoard.ts";
 import {Score} from "./score/Score.ts";
 import {Input} from "./Input.ts";
