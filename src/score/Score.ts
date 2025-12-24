@@ -1,10 +1,10 @@
-export type ScoreResult = {
+export type GameScore = {
     wpm: string,
     accuracy: string
 }
 
 export class Score {
-    public static calculate(mistakeCount: number = 0, totalCharactersTyped: number = 0, gameTime: number = 0): ScoreResult {
+    public static calculate(mistakeCount: number = 0, totalCharactersTyped: number = 0, gameTime: number = 0): GameScore {
         const accuracy = Score.calculateAccuracy(mistakeCount, totalCharactersTyped).toFixed(2);
         const wpm = Score.calculateWordsPerMinute(totalCharactersTyped, (gameTime / 60)).toFixed(2);
         return {

@@ -18,20 +18,22 @@ export class Input {
 
     public static handleKeyDown(key: string, gameInstance: GameInstance): void {
         if(key === 'Shift') return;
+        const gameState = gameInstance.gameState;
+        const currentLetterIndex = gameState.currentLetterIndex;
 
-        gameInstance.totalCharactersTyped++;
+        gameState.incrementTotalCharactersTyped();
 
-        const currentWord = gameInstance.gameBoard.getGameText().getWords()[gameInstance.currentWordIndex];
-        const currentLetter = currentWord.getLetters()[gameInstance.currentLetterIndex];
+        const currentWord = gameInstance.gameBoard.getGameText().getWords()[gameState.currentWordIndex];
+        const currentLetter = currentWord.getLetters()[currentLetterIndex];
 
-        !currentLetter.isCorrect(key) && gameInstance.mistakeCount++;
+        !currentLetter.isCorrect(key) && gameState.incrementMistakeCount();
 
-        if (gameInstance.currentLetterIndex === currentWord.getLetters().length - 1) {
-            gameInstance.currentWordIndex++;
-            gameInstance.currentLetterIndex = 0;
+        if (currentLetterIndex === currentWord.getLetters().length - 1) {
+            gameState.incrementCurrentWordIndex();
+            gameState.currentLetterIndex = 0;
             return;
         }
 
-        gameInstance.currentLetterIndex++;
+        gameState.incrementCurrentLetterIndex();
     }
 }
