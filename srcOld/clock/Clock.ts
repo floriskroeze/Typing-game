@@ -20,8 +20,8 @@ export class Clock implements IClock{
     public start(endGameCallbackFunction: () => void): void {
         let interval = setInterval(() => {
             if (this.time === 0) {
-                endGameCallbackFunction();
-                return this.stop(interval);
+                this.stop(interval);
+                return endGameCallbackFunction();
             }
 
             this.decrementTime();

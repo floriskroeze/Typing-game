@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "../../node_modules/tailwindcss/dist/lib.d.mts";
 @source inline("text-green-500");
 @source inline("text-red-500");
 @source inline("group");

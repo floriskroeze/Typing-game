@@ -1,5 +1,5 @@
 import {Word} from "./Word.ts";
-import {GameText} from "./GameText.ts";
+import {GameText} from "./game-text/GameText.ts";
 
 export class GameBoard {
     public readonly boardElement: Element|null;

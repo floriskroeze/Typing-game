@@ -1,15 +1,12 @@
-export class GameState {
-    private _currentWordIndex: number;
-    private _currentLetterIndex: number;
-    private _mistakeCount: number;
-    private _totalCharactersTyped: number;
+interface IState {
+    currentWordIndex: number,
+    currentLetterIndex: number,
+    mistakeCount: number,
+    totalCharactersTyped: number
+}
 
-    public constructor() {
-        this._currentWordIndex = 0;
-        this._currentLetterIndex = 0;
-        this._mistakeCount = 0;
-        this._totalCharactersTyped = 0;
-    }
+export class GameState implements IState {
+    public constructor(private _currentWordIndex: number = 0, private _currentLetterIndex: number = 0, private _mistakeCount: number = 0, private _totalCharactersTyped: number = 0) {}
 
     get currentWordIndex(): number {
         return this._currentWordIndex;

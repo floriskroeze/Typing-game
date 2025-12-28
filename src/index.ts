@@ -1,3 +1,5 @@
-import {Game} from './Game.ts';
+import setupStartScreen from "./start-screen/setupStartScreen.ts";
 
-Game.initialize();
+setupStartScreen();
+
+
