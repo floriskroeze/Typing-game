@@ -20,7 +20,7 @@ const setupGameText = async (difficulty: Difficulty) => {
     const allGameTexts = await fetchGameText();
     const allGameTextsForDifficulty = getGameTextsWithDifficulty(allGameTexts, difficulty);
 
-    setupWords(getGameTextForDifficulty(allGameTextsForDifficulty));
+    setupWords(getRandomGameText(allGameTextsForDifficulty));
 }
 
 const fetchGameText = async () => {
@@ -30,12 +30,12 @@ const fetchGameText = async () => {
     });
 }
 
-const getGameTextsWithDifficulty = (gameTexts: [], difficulty: Difficulty): GameText[] => {
+const getGameTextsWithDifficulty = (gameTexts: GameText[], difficulty: Difficulty): GameText[] => {
     return gameTexts.filter((gameText: GameText) => (gameText.difficulty === difficulty));
 };
 
-const getGameTextForDifficulty = (gameTexts: []): GameText => {
-    return testText;
+const getRandomGameText = (gameTexts: GameText[]): GameText => {
+    return gameTexts[Math.floor(Math.random() * gameTexts.length)];
 }
 
 const setupGameClock = (gameLength: GameLength) => {
