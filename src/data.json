@@ -9,6 +9,10 @@
             "difficulty": 2
         },
         {
+            "text": "Een paragraaf is een zelfstandige teksteenheid die één centraal idee of onderwerp behandelt, bestaande uit een groep samenhangende zinnen die een beginnende kernzin (topic sentence), ondersteunende details en vaak een afsluitende zin bevatten; het structureert een grotere tekst, maakt deze leesbaarder en helpt de lezer de organisatie en hoofdpunten te volgen, en wordt visueel aangegeven met een nieuwe regel of inspringing,.",
+            "difficulty": 2
+        },
+        {
             "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vestibulum vitae est quis vehicula. Sed ut dui a mi sagittis dictum. Donec commodo rhoncus posuere. Morbi egestas ac odio faucibus finibus. Sed venenatis euismod sagittis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas scelerisque sem ut lacinia tristique. Proin pellentesque, tortor et imperdiet dignissim, nisl orci venenatis lacus, sit amet sagittis diam sapien sit amet leo. Suspendisse egestas bibendum orci et fermentum.",
             "difficulty": 3
         }
