@@ -1,4 +1,4 @@
-import {GameScreen, getScreen} from "../../helpers/screen.ts";
+import {GameScreen, getScreen} from "../../../helpers/screen.ts";
 
 export default function(words: string[]) {
     words.forEach((word, index) => {

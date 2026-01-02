@@ -1,4 +1,3 @@
-import setupWordsAndLetters from "./setupWordAndLetterElements.ts";
 import {Difficulty} from "../../settings-screen/setupSettingsScreen.ts";
 
 export type GameText = {

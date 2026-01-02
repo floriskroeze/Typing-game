@@ -1,7 +1,8 @@
 import {GameLength, Settings} from "../settings-screen/setupSettingsScreen.ts";
-import {displayScreen, GameScreen, getScreen} from "../helpers/screen.ts";
+import {displayScreen, GameScreen, getScreen} from "../../helpers/screen.ts";
 import setupGameText from "./word/setupGameText.ts";
 import setupWordAndLetterElements from "./word/setupWordAndLetterElements.ts";
+import setupInput from "./input/setupInput.ts";
 
 export default function(settings: Settings) {
     if (!settings) throw new Error('No settings were selected.');
@@ -9,10 +10,11 @@ export default function(settings: Settings) {
     console.log("Initialising gameboard with settings: Difficulty: " + settings.difficulty + ". Time: " + settings.gameLength  + ".");
     setupGameText(settings.difficulty).then((gameText: string[]) => {
         setupWordAndLetterElements(gameText);
-        setupGameClock(settings.gameLength);
         displayScreen(GameScreen.GAMEBOARD);
     });
-
+    setupInput();
+    setupGameClock(settings.gameLength);
+    console.log("Gameboard initialised.");
 }
 
 const setupGameClock = (gameLength: GameLength) => {

@@ -1,5 +1,5 @@
 import setupSettingsScreen from "../settings-screen/setupSettingsScreen.ts";
-import {displayScreen, GameScreen, getScreen, hideScreen} from "../helpers/screen.ts";
+import {displayScreen, GameScreen, getScreen, hideScreen} from "../../helpers/screen.ts";
 
 export default function () {
     if (!getScreen(GameScreen.START)) throw new Error('Start screen not found.');

@@ -1,4 +1,4 @@
-import setupStartScreen from "./start-screen/setupStartScreen.ts";
+import setupStartScreen from "./screen/start-screen/setupStartScreen.ts";
 
 setupStartScreen();
 

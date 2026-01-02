@@ -1,5 +1,5 @@
 import setupGameBoard from "../gameboard/setupGameBoard.ts";
-import {displayScreen, GameScreen, getScreen, hideScreen} from "../helpers/screen.ts";
+import {displayScreen, GameScreen, getScreen, hideScreen} from "../../helpers/screen.ts";
 
 export enum Difficulty {
     EASY = 1,
