@@ -39,7 +39,7 @@ export default class GameState {
 
     static getInstance(): GameState {
         if (!this.instance) {
-            return new this('', 0, 0, 0);
+            this.instance = new this('', 0, 0, 0);
         }
         return this.instance;
     }

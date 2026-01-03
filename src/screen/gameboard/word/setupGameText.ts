@@ -1,5 +1,6 @@
 import {Difficulty} from "../../start-screen/setupStartScreen.ts";
 import GameRound from "../../../game-round/GameRound.ts";
+import GameTextIterator from "../../../iterator/GameTextIterator.ts";
 
 type GameTexts = {
     gameTexts: GameText[]
@@ -16,13 +17,11 @@ export default async function(difficulty: Difficulty) {
     const allGameTextsForDifficulty = getGameTextsWithDifficulty(allGameTexts.gameTexts, difficulty);
     const gameText = getRandomGameText(allGameTextsForDifficulty);
 
-    GameRound.getInstance().setGameText(gameText);
-
-    return getWordsFromText(gameText.text);
+    return { words: getWordsFromText(gameText.text), gameText: gameText};
 }
 
 const fetchGameText = async () => {
-    return fetch('src/data.json').then(response => {
+    return await fetch('src/data.json').then(response => {
         if(!response.ok) throw new Error('Could not fetch game text.');
         return response.json();
     });
@@ -43,3 +42,5 @@ const getWordsFromText = (text: string) => {
 const addSpacesToWordsArray = (words: string[]): string[] => {
     return words.flatMap(word => [word, " "]);
 }
+
+export const createGameTextIterator = (gameText: GameText) => new GameTextIterator(gameText.text.split(''));

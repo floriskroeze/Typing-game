@@ -1,7 +1,15 @@
 import {Iterator} from "./Iterator.ts";
 
 export default class GameTextIterator implements Iterator {
-    constructor(private readonly gameText: string[], private currentIndex: number = 0) {
+    private currentIndex: number = -1
+    private readonly gameText: string[] = [];
+
+    constructor(gameText: string[]) {
+        this.gameText = gameText;
+    }
+
+    getCurrentIndex(): number {
+        return this.currentIndex;
     }
 
     current(): string {

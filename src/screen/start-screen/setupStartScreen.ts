@@ -45,8 +45,6 @@ const setupStartButton = () => {
 
         GameRound.init(settingsObj);
 
-        GameRound.getInstance().startRound();
-
         hideScreen(GameScreen.START);
     });
 }
