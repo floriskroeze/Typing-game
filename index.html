@@ -17,9 +17,43 @@
         <div class="flex flex-col justify-center items-center grow min-h-[400px] m-auto rounded-lg border border-gray-300 bg-gray-100 p-6">
                 <div class="flex justify-center items-center relative text-xl leading-12">
                     <div id="start-screen">
-                        <button id="start" class="border border-gray-300 rounded-lg p-4 hover:bg-gray-300 hover:text-gray-700 cursor-pointer transition-all">Start</button>
-                    </div>
-                    <div id="settings" class="hidden">
+                        <form>
+                            <fieldset>
+                                <legend>Select a difficulty:</legend>
+                                <div>
+                                    <input type="radio" name="difficulty" id="EASY" value="EASY" checked>
+                                    <label for="EASY">Easy</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="difficulty" id="MEDIUM" value="MEDIUM">
+                                    <label for="MEDIUM">Medium</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="difficulty" id="HARD" value="HARD">
+                                    <label for="HARD">Hard</label>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Select the game length:</legend>
+                                <div>
+                                    <input type="radio" name="gameLength" id="TEN_SECONDS" value="TEN_SECONDS" checked>
+                                    <label for="TEN_SECONDS">Ten seconds</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="gameLength" id="HALF_MINUTE" value="HALF_MINUTE">
+                                    <label for="HALF_MINUTE">Half a minute</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="gameLength" id="ONE_MINUTE" value="ONE_MINUTE">
+                                    <label for="ONE_MINUTE">One minute</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="gameLength" id="TWO_MINUTES" value="TWO_MINUTES">
+                                    <label for="TWO_MINUTES">Two minutes</label>
+                                </div>
+                            </fieldset>
+                            <button id="start" type="submit" class="border border-gray-300 rounded-lg p-4 hover:bg-gray-300 hover:text-gray-700 cursor-pointer transition-all">Start</button>
+                        </form>
                     </div>
                     <div id="gameboard" class="hidden">
                         <div class="flex flex-col gap-2">

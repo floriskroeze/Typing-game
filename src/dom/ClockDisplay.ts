@@ -1,12 +1,14 @@
 import Observer from "../observer/Observer.ts";
 import Subject from "../observer/Subject.ts";
+import Clock from "../observer/Clock.ts";
 
-export class ClockDisplay implements Observer<string> {
+export class ClockDisplay implements Observer {
     private static readonly ELEMENT_ID = 'clock';
-    private subject: Subject<string>;
+    private subject: Subject;
 
-    constructor(clock: Subject<string>) {
+    constructor(clock: Clock) {
         this.subject = clock;
+        ClockDisplay.setInnerHTML(clock.getTimeString());
         clock.registerObserver(this);
     }
 
@@ -14,7 +16,7 @@ export class ClockDisplay implements Observer<string> {
         return document.getElementById(this.ELEMENT_ID);
     }
 
-    setInnerHTML(value: string): void {
+    static setInnerHTML(value: string): void {
         const clockElement = ClockDisplay.getClockElement();
 
         if (clockElement) {
@@ -22,7 +24,8 @@ export class ClockDisplay implements Observer<string> {
         }
     }
 
-    update(value: string): void {
-        this.setInnerHTML(value);
+    update<TValue>(value: TValue): void {
+        console.log('ClockDisplay: update');
+        ClockDisplay.setInnerHTML(value as string);
     }
 }
