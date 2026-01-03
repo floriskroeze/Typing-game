@@ -1,3 +1,3 @@
-export default interface Observer {
-    update(): void;
+export default interface Observer<TData> {
+    update(value: TData): void;
 }

@@ -1,3 +1,3 @@
-import Observer from "../observer/Observer.ts";
-    update(): void;
+export interface Display {
+    $ELEMENT_ID: string;
 }
