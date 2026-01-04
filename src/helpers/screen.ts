@@ -1,18 +1,5 @@
-export enum GameScreen {
-    START = 'start-screen',
-    SETTINGS = 'settings',
-    GAMEBOARD = 'gameboard',
-    END = 'end-screen'
-}
+import {GameScreen} from "../constant/gamescreens.ts";
 
-export const getScreen = (screen: GameScreen): Element | null =>{
-    return document?.getElementById(screen) ?? null;
-}
-
-export const displayScreen = (screen: GameScreen) => {
-    getScreen(screen)?.classList.remove('hidden');
-}
-
-export const hideScreen = (screen: GameScreen) => {
-    getScreen(screen)?.classList.add('hidden');
+export const getScreenElement = (screen: GameScreen): HTMLElement =>{
+    return document?.getElementById(screen)!;
 }

@@ -1,39 +1,61 @@
-import Observer from "./Observer.ts";
-import Subject from "./Subject.ts";
+import Observer from "../interface/Observer.ts";
+import Subject from "../interface/Subject.ts";
 
-export default class Clock  implements Subject{
+export default class Clock  implements Subject<string>{
+    private static instance: Clock | undefined;
     private time: number = 0;
-    private observers: Observer[] = [];
+    private observers: Observer<string>[] = [];
+    private intervalId: number | null = null;
 
-    constructor(time: number) {
+    private constructor() {}
+
+    setTime(time: number) {
         this.time = time;
-        this.notifyObservers();
+        this.notifyObservers(this.getTimeString());
     }
 
     start() {
-        const interval = setInterval(() => {
-            this.time--;
-            this.notifyObservers();
+        if (this.intervalId !== null) return;
 
-            if (this.time === 0) clearInterval(interval);
+        this.intervalId = window.setInterval(() => {
+            if (this.time > 0) {
+                this.time--;
+                this.notifyObservers(this.getTimeString());
+            } else {
+                this.stop();
+            }
         }, 1000);
     }
 
     stop() {
-        this.time = 0;
+        if (this.intervalId !== null) {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+        }
     }
 
     getTimeString(): string {
         return this.time.toString();
     }
 
-    registerObserver(o: Observer) {
+    isRunning(): boolean {
+        return this.intervalId !== null;
+    }
+
+    registerObserver(o: Observer<string>) {
         this.observers.push(o);
     }
-    unregisterObserver(o: Observer) {
+    unregisterObserver(o: Observer<string>) {
         this.observers = this.observers.filter(observer => observer !== o);
     }
-    notifyObservers() {
-        this.observers.forEach(observer => observer.update<string>(this.time.toString()));
+    notifyObservers(value: string) {
+        this.observers.forEach(observer => observer.update(this.time.toString()));
+    }
+
+    static getInstance(): Clock {
+        if (!Clock.instance) {
+            Clock.instance = new Clock();
+        }
+        return Clock.instance;
     }
 }

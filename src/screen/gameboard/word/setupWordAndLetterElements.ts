@@ -1,8 +1,9 @@
-import {GameScreen, getScreen} from "../../../helpers/screen.ts";
+import {getScreenElement} from "../../../helpers/screen.ts";
+import {GameScreen} from "../../../constant/gamescreens.ts";
 
 export const setupWordsAndLetters = (words: string[]) => {
     words.forEach((word, index) => {
-        const wordsWrapper = getScreen(GameScreen.GAMEBOARD)?.querySelector(".words-wrapper")
+        const wordsWrapper = getScreenElement(GameScreen.GAMEBOARD)?.querySelector(".words-wrapper")
         const wordElement = createWordElement();
         if (index === 0) wordElement.classList.add('active');
         word.split('').forEach((letter, index) => wordElement.appendChild(createLetterElements(letter, index)));

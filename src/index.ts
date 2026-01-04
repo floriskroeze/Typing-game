@@ -1,5 +1,5 @@
-import setupStartScreen from "./screen/start-screen/setupStartScreen.ts";
+import Game from "./Game.ts";
 
-setupStartScreen();
+Game.getInstance();
 
 

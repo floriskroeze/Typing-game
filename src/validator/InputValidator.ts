@@ -1,39 +1,35 @@
-import Observer from "../observer/Observer.ts";
-import Input from "../observer/Input.ts";
+import Observer from "../interface/Observer.ts";
 import GameTextIterator from "../iterator/GameTextIterator.ts";
+import {setLetterElementCorrectState} from "../helpers/letter-element.ts";
+import Input from "../observer/Input.ts";
 
-export default class InputValidator implements Observer {
-    static singleton: InputValidator;
-    private gameTextIterator: GameTextIterator;
+export default class InputValidator implements Observer<string> {
+    private static instance: InputValidator | undefined;
+    private gameTextIterator: GameTextIterator = new GameTextIterator([]);
 
-    constructor(gameTextIterator?: GameTextIterator) {
-        this.gameTextIterator = gameTextIterator ?? new GameTextIterator([]);
-        Input.getSingleton().registerObserver(this);
+    private constructor() {
+        Input.getInstance().registerObserver(this)
     }
 
-    update<TValue>(value: TValue): void {
-
-        console.log(this.checkInput(value as string, InputValidator.getInstance().gameTextIterator.next() as string));
-        console.log(InputValidator.getInstance().getCurrentLetterElement());
+    private isCorrect(input: string, currentLetter: string) {
+        return input === currentLetter;
     }
 
-    checkInput(input: string, currentIteration: string): boolean {
-        return input === currentIteration;
-    }
+    update(value: string) {
+        const currentLetter = this.gameTextIterator.next();
+        const currentIndex = this.gameTextIterator.getCurrentIndex();
 
-    getCurrentLetterElement(): Element|null {
-        if (!this.gameTextIterator.hasNext()) return null;
-        return document.querySelectorAll('letter')[this.gameTextIterator.getCurrentIndex()];
-    }
-
-    static getInstance(): InputValidator {
-        if (!this.singleton) {
-            this.singleton = new this();
-        }
-        return this.singleton;
+        setLetterElementCorrectState(currentIndex, this.isCorrect(value, currentLetter))
     }
 
     setGameTextIterator(gameTextIterator: GameTextIterator) {
         this.gameTextIterator = gameTextIterator;
+    }
+
+    static getInstance(): InputValidator {
+        if (!this.instance) {
+            this.instance = new this();
+        }
+        return this.instance;
     }
 }

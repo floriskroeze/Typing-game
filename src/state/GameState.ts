@@ -1,16 +1,7 @@
 
 export default class GameState {
     static instance: GameState;
-
-    constructor(private _currentLetter: string|null = null, private _mistakeCount: number = 0, private _gameTime: number = 0, private _totalCharactersTyped: number = 0) {
-    }
-
-    get currentLetter(): string|null {
-        return this._currentLetter;
-    }
-
-    set currentLetter(value: string) {
-        this._currentLetter = value;
+    constructor(private _mistakeCount: number = 0, private _gameTime: number = 0, private _totalCharactersTyped: number = 0) {
     }
 
     get mistakeCount(): number {
