@@ -1,19 +1,19 @@
-import Subject from "./Subject.ts";
-import Observer from "./Observer.ts";
+import Subject from "../interface/Subject.ts";
+import Observer from "../interface/Observer.ts";
+import Clock from "./Clock.ts";
 
-export default class Input implements Subject {
-    static singleton: Input = new Input();
-
+export default class Input implements Subject<string> {
+    private static instance: Input | undefined;
     private pressedKey: string = '';
-    private observers: Observer[] = [];
+    private observers: Observer<string>[] = [];
+    private keyDownHandler: (e: KeyboardEvent) => void;
 
-    setPressedKey(e: KeyboardEvent, key: string) {
-        if (key === 'Shift' || key === 'Ctrl') return;
+    private constructor() {
+        this.keyDownHandler = this.handleKeydown.bind(this);
+    }
 
-
-
+    private setPressedKey(key: string) {
         this.pressedKey = key;
-        console.log('Input: set pressed key to ' + key);
         this.notifyObservers();
     }
 
@@ -21,27 +21,39 @@ export default class Input implements Subject {
         return this.pressedKey;
     }
 
-    registerObserver(o: Observer) {
+    registerObserver(o: Observer<string>) {
         this.observers.push(o);
     }
 
-    unregisterObserver(o: Observer) {
+    unregisterObserver(o: Observer<string>) {
         this.observers = this.observers.filter(observer => observer !== o);
     }
 
     notifyObservers() {
-        this.observers.forEach(observer => observer.update<string>(this.pressedKey));
+        this.observers.forEach(observer => observer.update(this.pressedKey));
     }
 
     registerToDocument() {
-        document.addEventListener('keydown', (e: KeyboardEvent) => this.setPressedKey(e, e.key));
+        document.addEventListener('keydown', this.keyDownHandler.bind(this));
     }
 
     unregisterFromDocument() {
-        document.removeEventListener('keydown', (e: KeyboardEvent) => this.setPressedKey(e, e.key));
+        document.removeEventListener('keydown', this.keyDownHandler.bind(this));
     }
 
-    static getSingleton(): Input {
-        return Input.singleton;
+    static getInstance(): Input {
+        if (!Input.instance) {
+            Input.instance = new Input();
+        }
+        return Input.instance;
+    }
+
+    private handleKeydown(e: KeyboardEvent): void {
+        const key = e.key;
+
+        if (['Shift', 'Control', 'Alt', 'Meta'].includes(key)) return;
+        if (!Clock.getInstance().isRunning()) Clock.getInstance().start();
+
+        this.setPressedKey(e.key);
     }
 }

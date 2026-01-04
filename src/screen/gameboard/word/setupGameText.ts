@@ -1,6 +1,6 @@
-import {Difficulty} from "../../start-screen/setupStartScreen.ts";
-import GameRound from "../../../game-round/GameRound.ts";
 import GameTextIterator from "../../../iterator/GameTextIterator.ts";
+
+import {Difficulty, KeyOfDifficulty} from "../../../constant/settings.ts";
 
 type GameTexts = {
     gameTexts: GameText[]
@@ -8,13 +8,13 @@ type GameTexts = {
 
 export type GameText = {
     text: string,
-    difficulty: Difficulty;
+    difficulty: number;
 }
 
-export default async function(difficulty: Difficulty) {
+export default async function(difficulty: KeyOfDifficulty) {
     console.log("Selecting game text with difficulty: " + difficulty);
     const allGameTexts: GameTexts = await fetchGameText();
-    const allGameTextsForDifficulty = getGameTextsWithDifficulty(allGameTexts.gameTexts, difficulty);
+    const allGameTextsForDifficulty = getGameTextsWithDifficulty(allGameTexts.gameTexts, Difficulty[difficulty]);
     const gameText = getRandomGameText(allGameTextsForDifficulty);
 
     return { words: getWordsFromText(gameText.text), gameText: gameText};
@@ -27,7 +27,7 @@ const fetchGameText = async () => {
     });
 }
 
-const getGameTextsWithDifficulty = (gameTexts: GameText[], difficulty: Difficulty): GameText[] => {
+const getGameTextsWithDifficulty = (gameTexts: GameText[], difficulty: number): GameText[] => {
     return gameTexts?.filter((gameText: GameText) => (gameText.difficulty === difficulty));
 };
 
