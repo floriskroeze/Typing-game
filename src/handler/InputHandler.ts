@@ -3,8 +3,8 @@ import GameTextIterator from "../iterator/GameTextIterator.ts";
 import {setLetterElementCorrectState} from "../helpers/letter-element.ts";
 import Input from "../observer/Input.ts";
 
-export default class InputValidator implements Observer<string> {
-    private static instance: InputValidator | undefined;
+export default class InputHandler implements Observer<string> {
+    private static instance: InputHandler | undefined;
     private gameTextIterator: GameTextIterator = new GameTextIterator([]);
 
     private constructor() {
@@ -26,7 +26,7 @@ export default class InputValidator implements Observer<string> {
         this.gameTextIterator = gameTextIterator;
     }
 
-    static getInstance(): InputValidator {
+    static getInstance(): InputHandler {
         if (!this.instance) {
             this.instance = new this();
         }

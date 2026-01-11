@@ -1,5 +1,5 @@
 import {getScreenElement} from "../../../helpers/screen.ts";
-import {GameScreen} from "../../../constant/gamescreens.ts";
+import {GameScreen} from "../../../constant/screens.ts";
 
 export const setupWordsAndLetters = (words: string[]) => {
     words.forEach((word, index) => {

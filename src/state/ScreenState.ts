@@ -1,6 +1,6 @@
 import {GameStates} from "../constant/gamestates.ts";
 import {getScreenElement} from "../helpers/screen.ts";
-import {GameScreen} from "../constant/gamescreens.ts";
+import {GameScreen, ScreenID} from "../constant/screens.ts";
 
 export default class ScreenState {
     static instance: ScreenState | undefined;
@@ -8,7 +8,7 @@ export default class ScreenState {
 
     private screens: Record<string, HTMLElement> = {
         start: getScreenElement(GameScreen.START),
-        game: getScreenElement(GameScreen.GAMEBOARD),
+        game: getScreenElement(ScreenID.GAMEBOARD),
         end: getScreenElement(GameScreen.END)
     }
 
@@ -25,6 +25,11 @@ export default class ScreenState {
     showScreen(screenName: keyof typeof this.screens) {
         Object.values(this.screens).forEach(el => el.classList.add("hidden"));
         this.screens[screenName].classList.remove("hidden");
+    }
+
+    static getCurrentScreen() {
+        const screenState = this.getInstance();
+        return screenState.currentState;
     }
 
     static getInstance(): ScreenState {

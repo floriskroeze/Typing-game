@@ -1,13 +1,13 @@
 import Observer from "../../interface/Observer.ts";
-import Clock from "../../observer/Clock.ts";
+import Timer from "../../observer/Timer.ts";
 
 export class ClockDisplay implements Observer<string> {
     private static instance: ClockDisplay | undefined;
     private readonly element: HTMLElement = document.getElementById('clock')!;
-    private subject: Clock;
+    private subject: Timer;
 
     private constructor() {
-        this.subject = Clock.getInstance();
+        this.subject = Timer.getInstance();
         this.subject.registerObserver(this);
     }
 

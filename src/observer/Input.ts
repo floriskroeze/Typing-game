@@ -1,6 +1,6 @@
 import Subject from "../interface/Subject.ts";
 import Observer from "../interface/Observer.ts";
-import Clock from "./Clock.ts";
+import Timer from "./Timer.ts";
 
 export default class Input implements Subject<string> {
     private static instance: Input | undefined;
@@ -52,7 +52,7 @@ export default class Input implements Subject<string> {
         const key = e.key;
 
         if (['Shift', 'Control', 'Alt', 'Meta'].includes(key)) return;
-        if (!Clock.getInstance().isRunning()) Clock.getInstance().start();
+        if (!Timer.getInstance().isRunning()) Timer.getInstance().start();
 
         this.setPressedKey(e.key);
     }

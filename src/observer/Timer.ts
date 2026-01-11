@@ -1,13 +1,12 @@
 import Observer from "../interface/Observer.ts";
 import Subject from "../interface/Subject.ts";
 
-export default class Clock  implements Subject<string>{
-    private static instance: Clock | undefined;
+export default class Timer implements Subject<string>{
     private time: number = 0;
     private observers: Observer<string>[] = [];
     private intervalId: number | null = null;
 
-    private constructor() {}
+    constructor() {}
 
     setTime(time: number) {
         this.time = time;
@@ -50,12 +49,5 @@ export default class Clock  implements Subject<string>{
     }
     notifyObservers(value: string) {
         this.observers.forEach(observer => observer.update(this.time.toString()));
-    }
-
-    static getInstance(): Clock {
-        if (!Clock.instance) {
-            Clock.instance = new Clock();
-        }
-        return Clock.instance;
     }
 }

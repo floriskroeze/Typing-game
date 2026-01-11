@@ -4,7 +4,7 @@ import {setupWordsAndLetters} from "./word/setupWordAndLetterElements.ts";
 import GameTextIterator from "../../iterator/GameTextIterator.ts";
 
 import {KeyOfDifficulty} from "../../constant/settings.ts";
-import {GameScreen} from "../../constant/gamescreens.ts";
+import {GameScreen} from "../../constant/screens.ts";
 
 export default function(difficulty: KeyOfDifficulty): Promise<GameTextIterator> {
     if (!getScreenElement(GameScreen.GAMEBOARD)) throw new Error('Gameboard not found.');
