@@ -1,17 +1,13 @@
 import {getScreenElement} from "../helpers/screen.ts";
 import {ScreenID} from "../constant/screens.ts";
-import {GameText} from "./gameboard/word/setupGameText.ts";
+import {GameText} from "../provider/LocalDataProvider.ts";
 
 export default class GameScreen {
     private container: HTMLElement;
     private timerElement: HTMLElement;
     private textContainer: HTMLElement;
 
-    private onTextReady: () => void;
-
-    constructor(onTextReady: () => void, gameText: GameText) {
-        this.onTextReady = onTextReady;
-
+    constructor() {
         this.container = getScreenElement(ScreenID.PLAYING)!;
         this.timerElement = document.getElementById('timer')!;
         this.textContainer = document.getElementById('text-container')!;

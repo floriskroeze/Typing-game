@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
     "target": "Es2019",
-    "module": "ES2015",
-    "moduleResolution": "nodenext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "allowImportingTsExtensions": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
     "strict": true,
     "skipLibCheck": true,
     "outDir": "dist"

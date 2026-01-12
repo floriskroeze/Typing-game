@@ -2,40 +2,37 @@ import Timer from "./observer/Timer.ts";
 import StartScreen from "./screen/StartScreen.ts";
 import GameScreen from "./screen/GameScreen.ts";
 import EndScreen from "./screen/EndScreen.ts";
-import GameConfig from "./config/GameConfig.ts";
-import GameTextProvider from "./provider/GameTextProvider.ts";
+import LocalDataProvider from "./provider/LocalDataProvider.ts";
 import InputHandler from "./handler/InputHandler.ts";
 import {Config} from "./constant/settings.ts";
+import {GameConfig} from "./config/GameConfig.ts";
 
 export enum GameState {
     START = 'start',
     PLAYING = 'playing',
     END = 'end'
-};
+}
 
 export default class GameManager {
     currentState: GameState;
-    config: Config | undefined;
+    config: GameConfig | undefined;
     startScreen: StartScreen;
     gameScreen: GameScreen;
     endScreen: EndScreen;
     timer: Timer;
     inputHandler: InputHandler;
-    gameTextProvider: GameTextProvider;
+    gameTextProvider: LocalDataProvider;
 
     constructor(
         currentState: GameState,
+        startScreen: StartScreen,
         gameScreen: GameScreen,
         endScreen: EndScreen,
         timer: Timer,
         inputHandler: InputHandler,
-        gameTextProvider: GameTextProvider
+        gameTextProvider: LocalDataProvider
     ) {
-        this.startScreen = new StartScreen((config: Config) => {
-            this.config = config;
-            this.startGame();
-        });
-
+        this.startScreen = startScreen;
         this.gameScreen = gameScreen;
         this.endScreen = endScreen;
         this.timer = timer;
@@ -115,5 +112,4 @@ export default class GameManager {
     resetGame(): void {
         throw new Error("Method not implemented.");
     }
-
 }
