@@ -1,8 +1,14 @@
-export const Difficulty = {
-    EASY: 1,
-    MEDIUM: 2,
-    HARD: 3
-} as const;
+export interface GameConfig {
+    difficulty: number;
+    gameLength: number;
+}
+
+export enum Difficulty {
+    EASY,
+    MEDIUM,
+    HARD
+}
+
 export const GameLength = {
     TEN_SECONDS: 10,
     HALF_MINUTE: 30,
@@ -12,8 +18,4 @@ export const GameLength = {
 
 export type KeyOfDifficulty = keyof typeof Difficulty;
 export type KeyOfGameLength = keyof typeof GameLength;
-
-export interface Settings {
-    difficulty: KeyOfDifficulty,
-    gameLength: KeyOfGameLength
-}
+export type ValueOfGameLength = typeof GameLength[keyof typeof GameLength];

@@ -16,46 +16,46 @@
     <section class="flex justify-center items-center container mx-auto my-3 ">
         <div class="flex flex-col justify-center items-center grow min-h-[400px] m-auto rounded-lg border border-gray-300 bg-gray-100 p-6">
                 <div class="flex justify-center items-center relative text-xl leading-12">
-                    <div id="start-screen">
+                    <div id="start" class="flex flex-col gap-2">
                         <form>
                             <fieldset>
                                 <legend>Select a difficulty:</legend>
                                 <div>
-                                    <input type="radio" name="difficulty" id="EASY" value="EASY" checked>
+                                    <input type="radio" name="difficulty-select" id="EASY" value="EASY" checked>
                                     <label for="EASY">Easy</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="difficulty" id="MEDIUM" value="MEDIUM">
+                                    <input type="radio" name="difficulty-select" id="MEDIUM" value="MEDIUM">
                                     <label for="MEDIUM">Medium</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="difficulty" id="HARD" value="HARD">
+                                    <input type="radio" name="difficulty-select" id="HARD" value="HARD">
                                     <label for="HARD">Hard</label>
                                 </div>
                             </fieldset>
                             <fieldset>
                                 <legend>Select the game length:</legend>
                                 <div>
-                                    <input type="radio" name="gameLength" id="TEN_SECONDS" value="TEN_SECONDS" checked>
+                                    <input type="radio" name="gameLength-select" id="TEN_SECONDS" value="10" checked>
                                     <label for="TEN_SECONDS">Ten seconds</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="gameLength" id="HALF_MINUTE" value="HALF_MINUTE">
+                                    <input type="radio" name="gameLength-select" id="HALF_MINUTE" value="30">
                                     <label for="HALF_MINUTE">Half a minute</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="gameLength" id="ONE_MINUTE" value="ONE_MINUTE">
+                                    <input type="radio" name="gameLength-select" id="ONE_MINUTE" value="60">
                                     <label for="ONE_MINUTE">One minute</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="gameLength" id="TWO_MINUTES" value="TWO_MINUTES">
+                                    <input type="radio" name="gameLength" id="TWO_MINUTES" value="120">
                                     <label for="TWO_MINUTES">Two minutes</label>
                                 </div>
                             </fieldset>
-                            <button id="start" type="submit" class="border border-gray-300 rounded-lg p-4 hover:bg-gray-300 hover:text-gray-700 cursor-pointer transition-all">Start</button>
+                            <button id="start-button" type="submit" class="border border-gray-300 rounded-lg p-4 hover:bg-gray-300 hover:text-gray-700 cursor-pointer transition-all">Start</button>
                         </form>
                     </div>
-                    <div id="gameboard" class="hidden">
+                    <div id="game" class="hidden">
                         <div class="flex flex-col gap-2">
                             <div id="clock-wrapper" class="flex flex-col gap-2 items-center">
                                 <div>
@@ -65,11 +65,12 @@
                             </div>
                             <hr />
                             <div class="board">
-                                <div class="words-wrapper flex flex-wrap gap-2"></div>
+                                <input id="input" class="input opacity-0" type="text" maxlength="1" />
+                                <div id="text-container" class="flex flex-wrap gap-2"></div>
                             </div>
                         </div>
                     </div>
-                    <div id="end-screen" class="hidden">
+                    <div id="end" class="hidden">
                         <div class="flex flex-col gap-2">
                             <div id="score-wrapper" class="flex flex-col gap-2">
                                 <div id="wpm-wrapper" class="flex gap-2 space-between items-center">
