@@ -1,5 +1,4 @@
-import {Difficulty} from "../constant/settings.ts";
-import {GameConfig} from "../config/GameConfig.ts";
+import {Difficulty, GameConfig} from "../config/GameConfig.ts";
 
 export type GameText = {
     difficulty: Difficulty,

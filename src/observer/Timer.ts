@@ -1,10 +1,12 @@
-import Observer from "../interface/Observer.ts";
-import Subject from "../interface/Subject.ts";
+import Observer from "./Observer.ts";
+import Subject from "./Subject.ts";
 
 export default class Timer implements Subject<string>{
     private time: number = 0;
     private observers: Observer<string>[] = [];
-    private intervalId: number | null = null;
+    private intervalId: number | null = null
+
+    private onTimerEnd?: () => void;
 
     constructor() {}
 

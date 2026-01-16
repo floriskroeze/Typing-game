@@ -1,32 +1,44 @@
-import {getScreenElement} from "../helpers/screen.ts";
-import {ScreenID} from "../constant/screens.ts";
-import {GameText} from "../provider/LocalDataProvider.ts";
-
 export default class GameScreen {
-    private container: HTMLElement;
     private timerElement: HTMLElement;
     private textContainer: HTMLElement;
 
     constructor() {
-        this.container = getScreenElement(ScreenID.PLAYING)!;
         this.timerElement = document.getElementById('timer')!;
         this.textContainer = document.getElementById('text-container')!;
     }
 
-    renderText(gameText: GameText) {
-        this.textContainer.innerHTML = gameText.text;
+    renderText(text: string) {
+        [...text].forEach((letter, index) => this.textContainer.innerHTML += `<span id="letter-${index}">${letter}</span>`);
     }
 
-    updateCurrentLetter(currentLetter: string) {
-        this.textContainer.innerHTML = this.textContainer.innerHTML.replace(currentLetter, `<span>${currentLetter}</span>`);
+    updateCurrentLetter(index: number) {
+        this.textContainer.querySelector(`#letter-${index}`)?.classList?.add('text-blue-500', 'border-b-2');
     }
 
-    markLetterCorrect() {}
+    markLetter(index: number, isCorrect: boolean) {
+        isCorrect ? this.markLetterCorrect(index) : this.markLetterIncorrect(index);
 
-    markLetterIncorrect() {}
+        this.updateCurrentLetter(index += 1);
+    }
 
     reset() {
         this.textContainer.innerHTML = '';
         this.timerElement.innerHTML = '00:00';
+    }
+
+    private markLetterCorrect(index: number) {
+        this.textContainer.querySelector(`#letter-${index}`)?.classList.remove('border-b-2');
+        this.textContainer.querySelector(`#letter-${index}`)?.classList.add(
+            'text-green-500',
+            'animate-[bounce_0.3s_ease-in-out_1]',
+        )
+    }
+
+    private markLetterIncorrect(index: number) {
+        this.textContainer.querySelector(`#letter-${index}`)?.classList.remove('border-b-2');
+        this.textContainer.querySelector(`#letter-${index}`)?.classList.add(
+            'text-red-500',
+            'animate-[bounce_0.3s_ease-in-out_1]',
+        )
     }
 }

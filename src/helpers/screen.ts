@@ -1,4 +1,4 @@
-import {GameScreen, ScreenID} from "../constant/screens.ts";
+import {ScreenID} from "../constant/ScreenID.ts";
 
 export const getScreenElement = (screen: ScreenID): HTMLElement =>{
     return document?.getElementById(screen)!;

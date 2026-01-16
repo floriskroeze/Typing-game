@@ -3,6 +3,3 @@ export enum ScreenID {
     PLAYING = 'game',
     FINISHED = 'end'
 }
-
-export class GameScreen {
-}

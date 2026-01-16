@@ -1,4 +1,5 @@
-@import "../../node_modules/tailwindcss/dist/lib.d.mts";
+@import "tailwindcss";
+
 @source inline("text-green-500");
 @source inline("text-red-500");
 @source inline("group");
@@ -17,3 +18,5 @@
 @source inline("text-sm");
 @source inline("font-medium");
 @source inline("group-hover:bg-transparent");
+@source inline("text-blue-500");
+@source inline("animate-[ping_1s_cubic-bezier(0,0,0.2,1)_2]");

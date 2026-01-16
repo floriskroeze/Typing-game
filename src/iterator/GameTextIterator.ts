@@ -1,4 +1,4 @@
-import {Iterator} from "../interface/Iterator.ts";
+import {Iterator} from "./Iterator.ts";
 
 export default class GameTextIterator implements Iterator {
     private currentIndex: number = -1

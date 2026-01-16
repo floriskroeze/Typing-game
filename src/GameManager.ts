@@ -3,41 +3,39 @@ import StartScreen from "./screen/StartScreen.ts";
 import GameScreen from "./screen/GameScreen.ts";
 import EndScreen from "./screen/EndScreen.ts";
 import LocalDataProvider from "./provider/LocalDataProvider.ts";
-import InputHandler from "./handler/InputHandler.ts";
-import {Config} from "./constant/settings.ts";
 import {GameConfig} from "./config/GameConfig.ts";
-
-export enum GameState {
-    START = 'start',
-    PLAYING = 'playing',
-    END = 'end'
-}
+import {setActiveScreen} from "./helpers/screen.ts";
+import {ScreenID} from "./constant/ScreenID.ts";
+import {GameState} from "./constant/GameState.ts";
+import StrictInputHandler from "./handler/StrictInputHandler.ts";
 
 export default class GameManager {
     currentState: GameState;
-    config: GameConfig | undefined;
+    config: GameConfig;
     startScreen: StartScreen;
     gameScreen: GameScreen;
     endScreen: EndScreen;
     timer: Timer;
-    inputHandler: InputHandler;
-    gameTextProvider: LocalDataProvider;
+    inputHandler: StrictInputHandler;
+    localDataProvider: LocalDataProvider;
 
     constructor(
         currentState: GameState,
+        config: GameConfig,
         startScreen: StartScreen,
         gameScreen: GameScreen,
         endScreen: EndScreen,
         timer: Timer,
-        inputHandler: InputHandler,
-        gameTextProvider: LocalDataProvider
+        inputHandler: StrictInputHandler,
+        localDataProvider: LocalDataProvider
     ) {
+        this.config = config;
         this.startScreen = startScreen;
         this.gameScreen = gameScreen;
         this.endScreen = endScreen;
         this.timer = timer;
         this.inputHandler = inputHandler;
-        this.gameTextProvider = gameTextProvider;
+        this.localDataProvider = localDataProvider;
 
         this.currentState = currentState;
         this.enterState(currentState);
@@ -66,7 +64,6 @@ export default class GameManager {
     private enterCurrentState() {
         switch (this.currentState) {
             case GameState.START:
-                this.handleStartEnter();
                 break;
             case GameState.PLAYING:
                 this.handlePlayingEnter();
@@ -77,11 +74,21 @@ export default class GameManager {
         }
     }
 
-    private handleStartEnter(): void {
-        console.log("Method not implemented.");
-    }
-
     private handlePlayingEnter(): void {
+        setActiveScreen(ScreenID[this.currentState.toUpperCase() as keyof typeof ScreenID]);
+
+        const text = this.localDataProvider.getText(this.config);
+        this.gameScreen.renderText(text);
+
+        this.inputHandler.setText(text);
+
+        this.inputHandler.focusInput();
+        this.inputHandler.activeFocusManagement();
+
+        this.gameScreen.updateCurrentLetter(0);
+
+        this.timer = new Timer();
+
     }
 
     private handleEndEnter(): void {
@@ -89,12 +96,11 @@ export default class GameManager {
     }
 
     private handleStartExit(): void {
-        console.log(this.startScreen);
         this.startScreen.reset();
     }
 
     private handlePlayingExit(): void {
-        throw new Error("Method not implemented.");
+        this.gameScreen.reset();
     }
 
     private handleEndExit(): void {

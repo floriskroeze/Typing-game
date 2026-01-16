@@ -1,13 +1,19 @@
 import {getScreenElement} from "../helpers/screen.ts";
-import {ScreenID} from "../constant/screens.ts";
+import {ScreenID} from "../constant/ScreenID.ts";
 import {
     Config,
-    Difficulty,
-    GameLength,
-    KeyOfDifficulty, KeyOfGameLength, ValueOfGameLength,
+
+
 } from "../constant/settings.ts";
 
-import {GameConfig} from "../config/GameConfig.ts";
+import {
+    Difficulty,
+    GameConfig,
+    GameLength,
+    KeyOfDifficulty,
+    KeyOfGameLength,
+    ValueOfGameLength
+} from "../config/GameConfig.ts";
 
 export default class StartScreen {
     private readonly DIFFICULTY_DEFAULT: KeyOfDifficulty = "EASY";
