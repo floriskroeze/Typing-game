@@ -41,13 +41,21 @@ export default class GameManager {
         this.enterState(currentState);
     }
 
-    enterState(newState: GameState) {
+    startGame(): void {
+        this.enterState(GameState.PLAYING);
+    }
+
+    endGame(): void {
+        this.enterState(GameState.FINISHED);
+    }
+
+    private enterState(newState: GameState) {
         this.exitCurrentState();
         this.currentState = newState;
         this.enterCurrentState();
     }
 
-    exitCurrentState() {
+    private exitCurrentState() {
         switch (this.currentState) {
             case GameState.START:
                 this.handleStartExit();
@@ -55,7 +63,7 @@ export default class GameManager {
             case GameState.PLAYING:
                 this.handlePlayingExit();
                 break;
-            case GameState.END:
+            case GameState.FINISHED:
                 this.handleEndExit();
                 break;
         }
@@ -68,31 +76,24 @@ export default class GameManager {
             case GameState.PLAYING:
                 this.handlePlayingEnter();
                 break;
-            case GameState.END:
+            case GameState.FINISHED:
                 this.handleEndEnter();
                 break;
         }
+
+        setActiveScreen(ScreenID[this.currentState.toUpperCase() as keyof typeof ScreenID]);
     }
 
     private handlePlayingEnter(): void {
-        setActiveScreen(ScreenID[this.currentState.toUpperCase() as keyof typeof ScreenID]);
-
-        const text = this.localDataProvider.getText(this.config);
-        this.gameScreen.renderText(text);
-
-        this.inputHandler.setText(text);
+        this.setupGameText();
 
         this.inputHandler.focusInput();
         this.inputHandler.activeFocusManagement();
 
-        this.gameScreen.updateCurrentLetter(0);
-
-        this.timer = new Timer();
-
+        this.setupGameTimer();
     }
 
     private handleEndEnter(): void {
-        throw new Error("Method not implemented.");
     }
 
     private handleStartExit(): void {
@@ -104,18 +105,28 @@ export default class GameManager {
     }
 
     private handleEndExit(): void {
+        this.endScreen.reset();
+    }
+
+    private resetGame(): void {
         throw new Error("Method not implemented.");
     }
 
-    startGame(): void {
-        this.enterState(GameState.PLAYING);
+    private setupGameText(): void {
+        const text = this.localDataProvider.getText(this.config);
+
+        this.gameScreen.renderText(text);
+        this.gameScreen.updateCurrentLetter(0);
+
+        this.inputHandler.setText(text);
     }
 
-    endGame(): void {
-        this.enterState(GameState.END);
-    }
+    private setupGameTimer(): void {
+        this.timer = new Timer(() => this.endGame());
+        this.gameScreen.timerDisplay.setTimer(this.timer);
 
-    resetGame(): void {
-        throw new Error("Method not implemented.");
+        this.timer.setTime(this.config.gameLength);
+
+        this.inputHandler.setOnStart(() => this.timer.start());
     }
 }

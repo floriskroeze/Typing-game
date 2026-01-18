@@ -1,27 +1,29 @@
 import Observer from "./Observer.ts";
 import Subject from "./Subject.ts";
 
-export default class Timer implements Subject<string>{
+export default class Timer implements Subject<number>{
     private time: number = 0;
-    private observers: Observer<string>[] = [];
+    private observers: Observer<number>[] = [];
     private intervalId: number | null = null
 
-    private onTimerEnd?: () => void;
+    private readonly onTimerEnd: () => void;
 
-    constructor() {}
+    constructor(onTimerEnd: () => void) {
+        this.onTimerEnd = onTimerEnd;
+    }
 
     setTime(time: number) {
         this.time = time;
-        this.notifyObservers(this.getTimeString());
+        this.notifyObservers(this.getTime());
     }
 
     start() {
-        if (this.intervalId !== null) return;
+        if (this.isRunning()) return;
 
         this.intervalId = window.setInterval(() => {
             if (this.time > 0) {
                 this.time--;
-                this.notifyObservers(this.getTimeString());
+                this.notifyObservers(this.getTime());
             } else {
                 this.stop();
             }
@@ -29,27 +31,31 @@ export default class Timer implements Subject<string>{
     }
 
     stop() {
-        if (this.intervalId !== null) {
-            clearInterval(this.intervalId);
+        if (this.isRunning()) {
+            clearInterval(this.intervalId!);
             this.intervalId = null;
         }
+
+        this.onTimerEnd();
     }
 
-    getTimeString(): string {
-        return this.time.toString();
+    getTime(): number {
+        return this.time;
     }
 
     isRunning(): boolean {
         return this.intervalId !== null;
     }
 
-    registerObserver(o: Observer<string>) {
+    registerObserver(o: Observer<number>) {
         this.observers.push(o);
     }
-    unregisterObserver(o: Observer<string>) {
+
+    unregisterObserver(o: Observer<number>) {
         this.observers = this.observers.filter(observer => observer !== o);
     }
-    notifyObservers(value: string) {
-        this.observers.forEach(observer => observer.update(this.time.toString()));
+
+    notifyObservers(value: number) {
+        this.observers.forEach(observer => observer.update(value));
     }
 }

@@ -6,6 +6,5 @@ export const getScreenElement = (screen: ScreenID): HTMLElement =>{
 
 export const setActiveScreen = (screen: ScreenID) => {
     [ScreenID.START, ScreenID.PLAYING, ScreenID.FINISHED].forEach(el => getScreenElement(el).classList.add('hidden'));
-
     getScreenElement(screen).classList.remove('hidden');
 }

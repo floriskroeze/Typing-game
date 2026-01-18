@@ -19,4 +19,4 @@
 @source inline("font-medium");
 @source inline("group-hover:bg-transparent");
 @source inline("text-blue-500");
-@source inline("animate-[ping_1s_cubic-bezier(0,0,0.2,1)_2]");
+@source inline("whitespace-pre");

@@ -4,6 +4,7 @@ export default class StrictInputHandler {
     private chars: string[] = [];
     private currentIndex: number = 0;
     private isSessionActive: boolean = false;
+    private isStarted: boolean = false;
     private mistakeCount: number = 0;
     private lostFocusTimeout?: number | null = null;
 
@@ -30,6 +31,10 @@ export default class StrictInputHandler {
         this.reset();
 
         this.chars = [...text];
+    }
+
+    setOnStart(onStart: () => void): void {
+        this.onStart = onStart;
     }
 
     reset(): void {
@@ -68,7 +73,10 @@ export default class StrictInputHandler {
     }
 
     private handleInput(e: Event): void {
-        this.onStart && this.onStart();
+        if (!this.isStarted) {
+            this.isStarted = true;
+            this.onStart && this.onStart();
+        }
 
         const charTyped = this.inputElement.value;
         const expected = this.chars[this.currentIndex];
