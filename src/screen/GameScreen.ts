@@ -1,10 +1,13 @@
+import Timer from "../observer/Timer.ts";
+import TimerDisplay from "../observer/TimerDisplay.ts";
+
 export default class GameScreen {
-    private timerElement: HTMLElement;
+    timerDisplay: TimerDisplay;
     private textContainer: HTMLElement;
 
     constructor() {
-        this.timerElement = document.getElementById('timer')!;
         this.textContainer = document.getElementById('text-container')!;
+        this.timerDisplay = new TimerDisplay();
     }
 
     renderText(text: string) {
@@ -12,7 +15,7 @@ export default class GameScreen {
     }
 
     updateCurrentLetter(index: number) {
-        this.textContainer.querySelector(`#letter-${index}`)?.classList?.add('text-blue-500', 'border-b-2');
+        this.textContainer.querySelector(`#letter-${index}`)?.classList?.add( 'border-b-2', 'border-blue-500', 'whitespace-pre');
     }
 
     markLetter(index: number, isCorrect: boolean) {
@@ -23,14 +26,13 @@ export default class GameScreen {
 
     reset() {
         this.textContainer.innerHTML = '';
-        this.timerElement.innerHTML = '00:00';
+        this.timerDisplay.reset();
     }
 
     private markLetterCorrect(index: number) {
         this.textContainer.querySelector(`#letter-${index}`)?.classList.remove('border-b-2');
         this.textContainer.querySelector(`#letter-${index}`)?.classList.add(
             'text-green-500',
-            'animate-[bounce_0.3s_ease-in-out_1]',
         )
     }
 
@@ -38,7 +40,6 @@ export default class GameScreen {
         this.textContainer.querySelector(`#letter-${index}`)?.classList.remove('border-b-2');
         this.textContainer.querySelector(`#letter-${index}`)?.classList.add(
             'text-red-500',
-            'animate-[bounce_0.3s_ease-in-out_1]',
         )
     }
 }

@@ -6,4 +6,8 @@ export default class EndScreen {
     constructor() {
         this.container = document.getElementById(ScreenID.FINISHED)!;
     }
+
+    reset(): void {
+
+    }
 }

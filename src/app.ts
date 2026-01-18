@@ -19,11 +19,9 @@ const typingGame = new GameManager(
     }),
     gameScreen,
     new EndScreen(),
-    new Timer(),
+    new Timer(() => {}),
     new StrictInputHandler(
-        () => {
-            return
-        },
+        () => {},
         (index, isCorrect) => gameScreen.markLetter(index, isCorrect),
     ),
     new LocalDataProvider()

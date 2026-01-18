@@ -1,12 +1,6 @@
 import {getScreenElement} from "../helpers/screen.ts";
 import {ScreenID} from "../constant/ScreenID.ts";
 import {
-    Config,
-
-
-} from "../constant/settings.ts";
-
-import {
     Difficulty,
     GameConfig,
     GameLength,
@@ -17,7 +11,7 @@ import {
 
 export default class StartScreen {
     private readonly DIFFICULTY_DEFAULT: KeyOfDifficulty = "EASY";
-    private readonly GAME_LENGTH_DEFAULT: ValueOfGameLength = GameLength["TEN_SECONDS"];
+    private readonly GAME_LENGTH_DEFAULT: KeyOfGameLength = "TEN_SECONDS";
 
     private readonly container: HTMLElement;
     private readonly difficultyInputs: NodeListOf<HTMLInputElement>;
@@ -43,25 +37,30 @@ export default class StartScreen {
 
     reset(): void {
         Array.from(this.difficultyInputs).forEach((element) => element.checked = element.value === this.DIFFICULTY_DEFAULT );
-        Array.from(this.gameLengthInputs).forEach((element) => element.checked = parseInt(element.value) === this.GAME_LENGTH_DEFAULT);
+        Array.from(this.gameLengthInputs).forEach((element) => element.checked = element.value === this.GAME_LENGTH_DEFAULT);
     }
 
     private handleStartClick(event: Event) {
         event.preventDefault();
 
+        console.log('Start clicked');
+        console.log(this.getSelectedDifficulty(), this.getSelectedGameLength());
+
         const config: GameConfig = {
-            difficulty: Difficulty[this.getSelectedDifficulty()],
-            gameLength: GameLength[this.getSelectedGameLength()]
+            difficulty: Difficulty[this.getSelectedDifficulty() as KeyOfDifficulty],
+            gameLength: GameLength[this.getSelectedGameLength() as KeyOfGameLength]
         }
+
+        console.log(config);
 
         this.onStartRequested(config);
     }
 
-    private getSelectedDifficulty(): KeyOfDifficulty {
-        return Array.from(this.difficultyInputs).find(el => el.checked)?.value as KeyOfDifficulty;
+    private getSelectedDifficulty(): string {
+        return Array.from(this.difficultyInputs).find(el => el.checked)?.value!;
     }
 
-    private getSelectedGameLength(): KeyOfGameLength {
-        return Array.from(this.gameLengthInputs).find(el => el.checked)?.value as KeyOfGameLength;
+    private getSelectedGameLength(): string {
+        return Array.from(this.gameLengthInputs).find(el => el.checked)?.value!;
     }
 }
