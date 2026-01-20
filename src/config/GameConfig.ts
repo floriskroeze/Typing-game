@@ -6,7 +6,8 @@ export interface GameConfig {
 export enum Difficulty {
     EASY,
     MEDIUM,
-    HARD
+    HARD,
+    ELITE
 }
 
 export const GameLength = {
