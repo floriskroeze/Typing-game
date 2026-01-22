@@ -19,4 +19,3 @@ export const GameLength = {
 
 export type KeyOfDifficulty = keyof typeof Difficulty;
 export type KeyOfGameLength = keyof typeof GameLength;
-export type ValueOfGameLength = typeof GameLength[keyof typeof GameLength];

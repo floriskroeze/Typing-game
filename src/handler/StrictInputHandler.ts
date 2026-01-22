@@ -42,8 +42,11 @@ export default class StrictInputHandler {
         this.currentIndex = 0;
         this.isSessionActive = false;
         this.isStarted = false;
-        this.lostFocusTimeout && clearTimeout(this.lostFocusTimeout);
-        this.lostFocusTimeout = null;
+
+        if (this.lostFocusTimeout) {
+            clearTimeout(this.lostFocusTimeout);
+            this.lostFocusTimeout = null;
+        }
 
         this.chars = [];
     }
@@ -75,10 +78,10 @@ export default class StrictInputHandler {
         window.addEventListener('blur', this.handleWindowBlur);
     }
 
-    private handleInput(e: Event): void {
+    private handleInput(): void {
         if (!this.isStarted) {
             this.isStarted = true;
-            this.onStart && this.onStart();
+            this.onStart();
         }
 
         const charTyped = this.inputElement.value;
@@ -112,13 +115,14 @@ export default class StrictInputHandler {
         checkFocus();
     }
 
-    private handleWindowFocus = (e: FocusEvent) => {
+    private handleWindowFocus = () => {
         if (!this.isSessionActive) return;
         this.startPollingFocus();
     };
 
-    private handleWindowBlur = (e: FocusEvent) => {
-        this.lostFocusTimeout && clearTimeout(this.lostFocusTimeout);
+    private handleWindowBlur = () => {
+        if (!this.isSessionActive) return;
+        if (this.lostFocusTimeout) clearTimeout(this.lostFocusTimeout);
     };
 
     private preventDefaultBehaviors(e: KeyboardEvent): void {
