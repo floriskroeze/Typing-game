@@ -1,3 +1,4 @@
+import "/css/input.css";
 import GameManager from "./GameManager.ts";
 import LocalDataProvider from "./provider/LocalDataProvider.ts";
 import Timer from "./observer/Timer.ts";

@@ -13,7 +13,7 @@ export default defineConfig({
         entryFileNames: 'main.js',
         assetFileNames: 'assets/[name].[ext]'
       }
-    }
+    },
   },
   plugins: [
     tailwindcss(),
