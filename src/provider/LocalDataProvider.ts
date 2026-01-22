@@ -1,7 +1,9 @@
-import {Difficulty, GameConfig} from "../config/GameConfig.ts";
+import {Difficulty, GameConfig, KeyOfDifficulty} from "../config/GameConfig.ts";
+import SAMPLE_TEXTS from '../data.json';
 
 export type GameText = {
-    difficulty: Difficulty,
+    difficulty: string,
+    duration: number,
     text: string
 }
 
@@ -9,17 +11,10 @@ interface IDataProvider {
     getText(config: GameConfig): string;
 }
 
-const SAMPLE_TEXTS: GameText[] = [
-    { text: "the quick brown fox jumps over the lazy dog", difficulty: 0 },
-    { text: "pack my box with five dozen liquor jugs", difficulty: 0 },
-    { text: "sphinx of black quartz judge my vow", difficulty: 1 },
-    { text: "how vexingly quick daft zebras jump", difficulty: 1 },
-    { text: "the five boxing wizards jump quickly", difficulty: 2 },
-];
 
 export default class LocalDataProvider implements IDataProvider {
     getText(config: GameConfig): string {
-        const candidates = SAMPLE_TEXTS.filter(t => t.difficulty === config.difficulty);
+        const candidates = SAMPLE_TEXTS.filter(t => (Difficulty[t.difficulty.toUpperCase() as KeyOfDifficulty] === config.difficulty && parseInt(t.duration) === config.gameLength));
         if (candidates.length === 0) return "No texts with difficulty found";
         const idx = Math.floor(Math.random() * candidates.length);
         return candidates[idx].text;

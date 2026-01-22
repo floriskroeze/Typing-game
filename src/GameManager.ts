@@ -8,6 +8,7 @@ import {setActiveScreen} from "./helpers/screen.ts";
 import {ScreenID} from "./constant/ScreenID.ts";
 import {GameState} from "./constant/GameState.ts";
 import StrictInputHandler from "./handler/StrictInputHandler.ts";
+import { calculateScore } from "./helpers/score.ts";
 
 export default class GameManager {
     currentState: GameState;
@@ -37,6 +38,10 @@ export default class GameManager {
         this.inputHandler = inputHandler;
         this.localDataProvider = localDataProvider;
 
+        this.endScreen.setOnPlayAgain(() => {
+            this.enterState(GameState.START);
+        })
+
         this.currentState = currentState;
         this.enterState(currentState);
     }
@@ -47,6 +52,7 @@ export default class GameManager {
 
     endGame(): void {
         this.enterState(GameState.FINISHED);
+        this.timer = new Timer(() => {});
     }
 
     private enterState(newState: GameState) {
@@ -94,6 +100,9 @@ export default class GameManager {
     }
 
     private handleEndEnter(): void {
+        const score = calculateScore(this.inputHandler.getCurrentPosition(), this.inputHandler.getMistakeCount(), this.config.gameLength);
+
+        this.endScreen.displayScores(score);
     }
 
     private handleStartExit(): void {
@@ -106,10 +115,6 @@ export default class GameManager {
 
     private handleEndExit(): void {
         this.endScreen.reset();
-    }
-
-    private resetGame(): void {
-        throw new Error("Method not implemented.");
     }
 
     private setupGameText(): void {

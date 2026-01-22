@@ -6,12 +6,11 @@ import {
     GameLength,
     KeyOfDifficulty,
     KeyOfGameLength,
-    ValueOfGameLength
 } from "../config/GameConfig.ts";
 
 export default class StartScreen {
     private readonly DIFFICULTY_DEFAULT: KeyOfDifficulty = "EASY";
-    private readonly GAME_LENGTH_DEFAULT: KeyOfGameLength = "TEN_SECONDS";
+    private readonly GAME_LENGTH_DEFAULT: KeyOfGameLength = "FIFTEEN_SECONDS";
 
     private readonly container: HTMLElement;
     private readonly difficultyInputs: NodeListOf<HTMLInputElement>;
@@ -28,7 +27,7 @@ export default class StartScreen {
         this.gameLengthInputs = document.querySelectorAll('input[name=gameLength-select]') as NodeListOf<HTMLInputElement>;
         this.startButton = document.getElementById('start-button') as HTMLButtonElement;
 
-        if (!this.container || !this.startButton) {
+        if (!this.container || !this.startButton || !this.difficultyInputs || !this.gameLengthInputs) {
             throw new Error('StartScreen: Required DOM elements not found');
         }
 
@@ -42,25 +41,19 @@ export default class StartScreen {
 
     private handleStartClick(event: Event) {
         event.preventDefault();
-
-        console.log('Start clicked');
-        console.log(this.getSelectedDifficulty(), this.getSelectedGameLength());
-
         const config: GameConfig = {
             difficulty: Difficulty[this.getSelectedDifficulty() as KeyOfDifficulty],
             gameLength: GameLength[this.getSelectedGameLength() as KeyOfGameLength]
         }
 
-        console.log(config);
-
         this.onStartRequested(config);
     }
 
     private getSelectedDifficulty(): string {
-        return Array.from(this.difficultyInputs).find(el => el.checked)?.value!;
+        return Array.from(this.difficultyInputs).find(el => el.checked)?.value || this.DIFFICULTY_DEFAULT;
     }
 
     private getSelectedGameLength(): string {
-        return Array.from(this.gameLengthInputs).find(el => el.checked)?.value!;
+        return Array.from(this.gameLengthInputs).find(el => el.checked)?.value || this.GAME_LENGTH_DEFAULT;
     }
 }

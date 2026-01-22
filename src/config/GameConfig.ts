@@ -6,11 +6,12 @@ export interface GameConfig {
 export enum Difficulty {
     EASY,
     MEDIUM,
-    HARD
+    HARD,
+    ELITE
 }
 
 export const GameLength = {
-    TEN_SECONDS: 10,
+    FIFTEEN_SECONDS: 15,
     HALF_MINUTE: 30,
     ONE_MINUTE: 60,
     TWO_MINUTES: 120

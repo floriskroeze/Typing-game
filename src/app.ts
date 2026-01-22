@@ -12,7 +12,7 @@ const gameScreen = new GameScreen();
 
 const typingGame = new GameManager(
     GameState.START,
-    {difficulty: 1, gameLength: 10},
+    {difficulty: 1, gameLength: 15},
     new StartScreen((config: GameConfig) => {
         typingGame.config = config;
         typingGame.startGame();
