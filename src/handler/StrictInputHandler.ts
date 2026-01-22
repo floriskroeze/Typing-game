@@ -41,6 +41,9 @@ export default class StrictInputHandler {
         this.mistakeCount = 0;
         this.currentIndex = 0;
         this.isSessionActive = false;
+        this.isStarted = false;
+        this.lostFocusTimeout && clearTimeout(this.lostFocusTimeout);
+        this.lostFocusTimeout = null;
 
         this.chars = [];
     }
@@ -49,7 +52,7 @@ export default class StrictInputHandler {
         return this.currentIndex;
     }
 
-    getMistakes(): number {
+    getMistakeCount(): number {
         return this.mistakeCount;
     }
 

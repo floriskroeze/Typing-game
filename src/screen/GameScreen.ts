@@ -2,12 +2,17 @@ import Timer from "../observer/Timer.ts";
 import TimerDisplay from "../observer/TimerDisplay.ts";
 
 export default class GameScreen {
+    private readonly textContainer: HTMLElement;
+
     timerDisplay: TimerDisplay;
-    private textContainer: HTMLElement;
 
     constructor() {
         this.textContainer = document.getElementById('text-container')!;
         this.timerDisplay = new TimerDisplay();
+
+        if (!this.textContainer || !this.timerDisplay) {
+            throw new Error('GameScreen: Required DOM elements not found');
+        }
     }
 
     renderText(text: string) {
