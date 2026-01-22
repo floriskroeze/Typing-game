@@ -23,9 +23,15 @@ export default class GameScreen {
     }
 
     markLetter(index: number, isCorrect: boolean) {
-        this.updateCurrentLetter(index += 1);
 
-        return isCorrect ? this.markLetterCorrect(index) : this.markLetterIncorrect(index);
+
+        if (isCorrect) {
+            this.markLetterCorrect(index)
+        } else {
+            this.markLetterIncorrect(index);
+        }
+
+        this.updateCurrentLetter(index += 1);
     }
 
     reset() {
