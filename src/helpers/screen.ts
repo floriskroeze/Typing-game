@@ -1,7 +1,7 @@
 import {ScreenID} from "../constant/ScreenID.ts";
 
 export const getScreenElement = (screen: ScreenID): HTMLElement =>{
-    return document?.getElementById(screen)!;
+    return document.getElementById(screen)!;
 }
 
 export const setActiveScreen = (screen: ScreenID) => {

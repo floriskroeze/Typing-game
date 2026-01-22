@@ -1,4 +1,3 @@
-import Timer from "../observer/Timer.ts";
 import TimerDisplay from "../observer/TimerDisplay.ts";
 
 export default class GameScreen {
@@ -24,9 +23,9 @@ export default class GameScreen {
     }
 
     markLetter(index: number, isCorrect: boolean) {
-        isCorrect ? this.markLetterCorrect(index) : this.markLetterIncorrect(index);
-
         this.updateCurrentLetter(index += 1);
+
+        return isCorrect ? this.markLetterCorrect(index) : this.markLetterIncorrect(index);
     }
 
     reset() {

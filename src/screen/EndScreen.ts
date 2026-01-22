@@ -2,7 +2,7 @@ import {ScreenID} from "../constant/ScreenID.ts";
 import {GameScore} from "../helpers/score.ts";
 
 export default class EndScreen {
-    private container: HTMLElement;
+    private readonly container: HTMLElement;
     private readonly grossWPMElement: HTMLElement;
     private readonly netWPMElement: HTMLElement ;
     private readonly accuracyElement: HTMLElement;
