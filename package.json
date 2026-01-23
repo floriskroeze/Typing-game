@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "vite build",
-    "dev": "vite"
+    "dev": "vite",
+    "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.18",
