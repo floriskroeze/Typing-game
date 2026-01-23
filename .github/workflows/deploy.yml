@@ -45,7 +45,7 @@ jobs:
         run: |
           mkdir -p staging
           cp index.html staging/    
-          cp -r dist/* staging/dist/     
+          cp -r dist/ staging/dist/     
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
